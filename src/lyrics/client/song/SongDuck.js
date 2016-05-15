@@ -20,7 +20,8 @@ const REQUEST_SONG_RECIEVE = 'REQUEST_SONG_RECIEVE';
 
 export const requestSong = createAction(REQUEST_SONG_RECIEVE);
 
-const boringWords = List(['the', 'i', 'my', 'and', 'a', 'on', 'for', 'of', 'is', 'that', 'in', 'to', 'or']);
+const boringWords = List(['the', 'be', 'to', 'of', 'and', 'a', 'in', 'that', 'have', 'i', 'it', 'for', 'not', 'on', 'with', 'he', 'as', 'you', 'do', 'at']);
+// const boringWords = List(['the', 'i', 'my', 'and', 'a', 'on', 'for', 'of', 'is', 'that', 'in', 'to', 'or']);
 
 
 const initialState = Map();
@@ -28,8 +29,9 @@ export default function(state = initialState, action) {
     var {type, payload} = action;
     switch (type) {
         case REQUEST_SONG_RECIEVE:
-            var lines = payload.lyrics.split('\n');
-            var tokenized = naive(payload.lyrics);
+            var lyrics = payload.lyrics.replace(/['",]|([\[\(].*?[\]\)])/g, '');
+            var lines = lyrics.split('\n');
+            var tokenized = naive(lyrics);
             var words = fromJS(tokenized);
             var wordCountMap = fromJS(absolute(tokenized))
 
@@ -40,6 +42,10 @@ export default function(state = initialState, action) {
                 wordsUsedOnce: wordCountMap.filter(ii => ii === 1).size,
                 syllableLinesList: lines.map(line => naive(line).map(word => syllables(word))),
                 syllableList: words.map(ww => syllables(ww)),
+                longestWords: wordCountMap
+                    .sortBy((ii, key) => key.length)
+                    .reverse()
+                    .take(10),
                 mostCommonWords: wordCountMap
                     .sortBy((ii, key) => ii)
                     .reverse()

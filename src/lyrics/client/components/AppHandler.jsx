@@ -65,8 +65,16 @@ function Song(props) {
                 </VictoryChart>
             </div>
             <div>
-                <h2>Most Common Words</h2>
-                <ul>{song.map(ss => ss.get('mostCommonWords').map((ii, key) => <li>{`${key}`}</li>)).orSome('-')}</ul>
+                <div className="Grid">
+                    <div className="Col-">
+                        <h2>Most Common Words</h2>
+                        <ul>{song.map(ss => ss.get('mostCommonWords').map((ii, key) => <li>{`${key}`} <span style={{opacity: .5}}>{ii}</span></li>)).orSome('-')}</ul>
+                    </div>
+                    <div className="Col-">
+                        <h2>Longest Words</h2>
+                        <ul>{song.map(ss => ss.get('longestWords').map((ii, key) => <li>{`${key}`}</li>)).orSome('-')}</ul>
+                    </div>
+                </div>
             </div>
         </div>
 }
@@ -80,7 +88,7 @@ var AppHandler = React.createClass({
         this.props.dispatch(requestSong({id: 'stronger', lyrics: stronger }));
     },
     render() {
-        var {noneShallPass, memoryLane} = this.props;
+        var {noneShallPass, memoryLane, stronger, cosbySweater} = this.props;
 
         return <div>
             <div className="Grid">
