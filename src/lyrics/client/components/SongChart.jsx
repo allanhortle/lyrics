@@ -1,7 +1,7 @@
 import React from 'react';
 import NumberStat from 'lyrics/client/components/NumberStat';
 import ChartAxis from 'lyrics/client/components/ChartAxis';
-import { VictoryChart, VictoryBar, VictoryLine} from "victory";
+import { VictoryChart, VictoryBar, VictoryLine, VictoryAxis} from "victory";
 
 export default function SongChart(props) {
     var {song} = props;
@@ -26,13 +26,13 @@ export default function SongChart(props) {
             <div>
                 <h2>Syllables</h2>
                 <VictoryChart height={180} padding={{left: 24, right: 0, top: 16, bottom: 0}} domainPadding={8}>
-                    <ChartAxis/>
-                    <ChartAxis dependentAxis />
+                    <VictoryAxis/>
+                    <VictoryAxis dependentAxis />
                     <VictoryLine interpolation="stepBefore"style={{data: {strokeWidth: 1 } }} data={song.map(ss => ss.get('syllableList').map((ii, key) => ({x: key, y:ii})).toJS()).orSome([])} />
                 </VictoryChart>
                 <VictoryChart height={240}>
-                    <ChartAxis/>
-                    <ChartAxis dependentAxis />
+                    <VictoryAxis/>
+                    <VictoryAxis dependentAxis />
                     <VictoryBar
                         horizontal
                         colorScale={"qualitative"}
