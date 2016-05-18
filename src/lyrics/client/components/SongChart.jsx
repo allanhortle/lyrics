@@ -1,6 +1,8 @@
 import React from 'react';
 import NumberStat from 'lyrics/client/components/NumberStat';
 import ChartAxis from 'lyrics/client/components/ChartAxis';
+import SyllablesOverTime from 'lyrics/client/charts/SyllablesOverTime';
+import SyllableCount from 'lyrics/client/charts/SyllableCount';
 import { VictoryChart, VictoryBar, VictoryLine, VictoryAxis} from "victory";
 
 export default function SongChart(props) {
@@ -17,33 +19,12 @@ export default function SongChart(props) {
                     <NumberStat className="Col- text-right" label="Uniqueness" value={getValue(ss => Math.round(ss.get('wordsUnique') / ss.get('words') * 100) + '%')}/>
                     <NumberStat className="Col-" label="Repetition" value={getValue(ss => Math.round(ss.get('wordsRepeatedCount') / ss.get('words') * 100) + '%')}/>
                 </div>
-                <div className="Grid margin-row2">
+                <div className="Grid Grid-tighter margin-row2">
                     <NumberStat className="Col-" label="Total Words" value={getValue('words')}/>
                     <NumberStat className="Col-" label="Unique Words" value={getValue('wordsUnique')}/>
                     <NumberStat className="Col-" label="Words Repeated" value={getValue('wordsRepeated')}/>
                     <NumberStat className="Col-" label="Words Used Once" value={getValue('wordsUsedOnce')}/>
                 </div>
-            <div>
-                <h2>Syllables</h2>
-                <VictoryChart height={180} padding={{left: 24, right: 0, top: 16, bottom: 0}} domainPadding={8}>
-                    <VictoryAxis/>
-                    <VictoryAxis dependentAxis />
-                    <VictoryLine interpolation="stepBefore"style={{data: {strokeWidth: 1 } }} data={song.map(ss => ss.get('syllableList').map((ii, key) => ({x: key, y:ii})).toJS()).orSome([])} />
-                </VictoryChart>
-                <VictoryChart height={240}>
-                    <VictoryAxis/>
-                    <VictoryAxis dependentAxis />
-                    <VictoryBar
-                        horizontal
-                        colorScale={"qualitative"}
-
-                        data={song.map(ss => ss.get('syllableCount').map((ii, key) => ({x: key, y:ii})).toList().toJS()).orSome([])}
-                    />
-                </VictoryChart>
-
-
-
-            </div>
             <div>
                 <div className="Grid">
                     <div className="Col-">
@@ -55,6 +36,10 @@ export default function SongChart(props) {
                         <ul>{song.map(ss => ss.get('longestWords').map((ii, key) => <li>{`${key}`}</li>)).orSome('-')}</ul>
                     </div>
                 </div>
+            </div>
+            <div>
+                <h2>Syllables</h2>
+                <SyllablesOverTime song={song} />
             </div>
         </div>
 }

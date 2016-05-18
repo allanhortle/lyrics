@@ -58,7 +58,7 @@ export default function(state = initialState, action) {
                 wordsRepeated: wordCountMap.filter(ii => ii > 1).size,
                 wordsRepeatedCount: wordCountMap.filter(ii => ii > 1).reduce((count, item) => count + item, 0),
                 wordsUsedOnce: wordCountMap.filter(ii => ii === 1).size,
-                syllableList: words.map(ww => syllables(ww)).filter((ii, kk) => kk % 6 === 0),
+                syllableList: words.map(ww => syllables(ww)).filter((ii, kk) => kk % 4 === 0),
                 syllableCount: words.reduce((rr, ii) => {
                     var number = syllables(ii);
                     return rr.set(number, rr.get(number, 0) + 1);
