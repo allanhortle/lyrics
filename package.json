@@ -1,5 +1,5 @@
 {
-  "name": "lyrics",
+  "name": "lyrics-wrapper",
   "version": "0.0.0",
   "description": "UI & API for BigDatr.com",
   "repository": {
@@ -14,6 +14,7 @@
   "scripts": {
     "test": "grunt test",
     "preinstall": "rimraf ./node_modules/lyrics",
+    "build": "grunt build",
     "link": "cd src/lyrics/ && npm link && cd ../../ && npm link lyrics",
     "start": "node index"
   },
