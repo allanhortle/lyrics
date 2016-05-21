@@ -6,7 +6,7 @@ var elephas_config = {
     static_root_path: __dirname.replace('server', 'public') + '/',
     httpsOnly: false,
     server: {
-        port: process.env['LYRICS_PORT'] || 3000,
+        port: process.env['LYRICS_PORT'] || process.env.PORT || 3000,
     },
     csp: false
 };
