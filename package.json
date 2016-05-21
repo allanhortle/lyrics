@@ -14,7 +14,7 @@
   "scripts": {
     "test": "grunt test",
     "preinstall": "rimraf ./node_modules/lyrics",
-    "build": "grunt build",
+    "build": "export NODE_ENV='production' && grunt build",
     "link": "cd src/lyrics/ && npm link && cd ../../ && npm link lyrics",
     "start": "node index"
   },
